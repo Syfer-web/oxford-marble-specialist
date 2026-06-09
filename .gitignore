@@ -1,0 +1,11 @@
+# Reference / source materials — not part of the deployed site
+source-originals/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
