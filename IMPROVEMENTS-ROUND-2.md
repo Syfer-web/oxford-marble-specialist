@@ -68,75 +68,15 @@
 
 ---
 
-## 🟡 POLISH — would make it feel premium
+## 🟡 Polish
 
-### 10. Footer year 2025 → 2026 + auto-update
-**Impact:** Tiny detail but visitors notice.
-**Effort:** 2 min — `<span id="year"></span>` + 1 line of JS.
-
-### 11. Add a `/quote` direct deep link
-**Impact:** Right now "Get a quote" is a modal. If you ever want to share a direct "Get a quote" link on Instagram, in an email signature, or in a Google Ad, you need a URL. Add `?quote=open` query param check.
-**Effort:** 5 min.
-
-### 12. Add breadcrumb schema for project pages (once you have them)
-**N/A for now** — only 1-page site. Skip.
-
-### 13. Add a "Recently completed" badge / scrolling ticker
-**Impact:** Trust signal: "Just finished: Calacatta kitchen in Henley." Updates weekly. Shows OMS is actively working.
-**Effort:** 30 min.
-**Trade-off:** Requires real client consent to name locations. Skip until you have it.
-
-### 14. Test mobile thoroughly on real device
-**Impact:** I've seen the site on a desktop browser at 3 viewports. The mobile responsive CSS looks solid but I haven't tested on a real iPhone — particularly the modal at 375px (iPhone SE), the testimonial marquee, and the gallery tabs. Worth a 10-min manual pass.
-**Effort:** 10 min.
-
-### 15. Add a "Booked until [date]" availability indicator
-**Impact:** Slight scarcity nudge — "Currently booking worktop installations from [date]." Real OMS books out 2-3 weeks. Signals they're in demand.
-**Effort:** 5 min + you give me a real date.
-**Trade-off:** Slightly weird if date is wrong. Skip if it changes weekly.
-
-### 16. Add a press / "As seen in" row
-**Impact:** If OMS has any press mentions (Houzz, local Oxford magazine, design blog), 4 small logos in a row massively boost credibility. Most marble companies don't have this.
-**Effort:** 10 min if you have logos; N/A if you don't.
-
-### 17. Add "Material samples — order a free pack" CTA
-**Impact:** Marble is a tactile purchase. People want to see and touch before committing. Offer to mail 6-8 sample chips. Could be a side-gig revenue too (charge £25 for the sample pack, refundable on order).
-**Effort:** 20 min + fulfilment setup.
-
----
-
-## 🟢 NICE-TO-HAVE — if you have time
-
-### 18. Add a "Loading from Italy / Spain / Brazil" stock counter
-**Fun, low-effort — animated badge showing where current slabs are being sourced from. Rotates every 30s. "Now loading: Calacatta Oro from Carrara, Italy." Reinforces the "we source globally" story.**
-
-### 19. Sticky WhatsApp button (already exists)
-Already done — green WhatsApp circle in bottom-right. Good.
-
-### 20. Add a maintenance / re-sealing service callout
-**Impact:** OMS already offers re-sealing per the FAQ. That's a repeat-revenue service most customers forget to book. Add a 1-line CTA in the footer or contact section: "Had stone installed elsewhere? We offer a re-sealing and restoration service across Oxfordshire."
-**Effort:** 10 min.
-
-### 21. Cookie banner — make Decline actually work
-**Impact:** The banner has Accept/Decline buttons, good. But Decline probably just hides the banner. If you ever set Google Analytics, Decline should clear cookies. Test this.
-**Effort:** 5 min to test + fix.
-
-### 22. Add `aria-current="page"` to nav links on scroll
-**Impact:** Accessibility — screen readers should announce which section is active as you scroll.
-**Effort:** 15 min.
-
-### 23. Add `prefers-reduced-motion` support
-**Impact:** Respects users with motion sensitivity (vestibular issues, migraine triggers). One-line CSS media query + small JS check.
-**Effort:** 15 min.
-
-### 24. Move the WhatsApp button left when on mobile
-**Impact:** WhatsApp overlaps with the floating cookie banner on mobile. Either move WA left, or make cookie banner shorter on mobile.
-**Effort:** 10 min CSS.
-
-### 25. Add Open Graph image for testimonials
-**Impact:** When someone shares a testimonial on LinkedIn / Twitter, the share preview currently uses the generic OG image. Could be nicer to have section-specific previews. Skip unless you start doing social.
-
----
+11. ~~Footer year 2025 → 2026 + auto-update~~ — **DONE** (auto-updates via JS)
+12. ~~24 testimonial cards duplicated via marquee animation~~ — **N/A** (marquee needs duplication for seamless loop)
+13. ~~6 testimonial avatar URLs return 0×0~~ — **DONE** (replaced with gold gradient + initials fallback, 24 cards all render)
+14. ~~Cookie banner Decline should clear cookies~~ — **DONE** (clears `oms_*`/`_ga`/`plausible` cookies if present; no-op now since no analytics)
+15. ~~WhatsApp button overlaps cookie banner on mobile~~ — **DONE** (WA repositions to `bottom: 200px` while banner is up, animates to `bottom: 24px` after user chooses)
+16. ~~No `prefers-reduced-motion` support~~ — **DONE** (kills all animations for users with motion sensitivity)
+17. ~~No aria-current on nav as you scroll~~ — **DONE** (IntersectionObserver watches sections, adds `aria-current="page"` + visual dot indicator)
 
 ## What I'd do in the next 30 minutes
 
