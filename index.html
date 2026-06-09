@@ -137,6 +137,13 @@ nav.scrolled .nav-links a:hover{background:rgba(0,0,0,.05)}
 }
 nav.scrolled .nav-links .nav-cta{background:var(--black);color:#fff!important;}
 .nav-links .nav-cta:hover{opacity:.8;background:var(--black)!important}
+.nav-links a.is-active,
+.mobile-menu a.is-active{position:relative}
+.nav-links a.is-active::after{
+  content:'';position:absolute;left:50%;bottom:2px;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7;
+}
+nav:not(.scrolled) .nav-links a.is-active::after{background:#fff;opacity:.9}
 
 /* ─── HERO ─── */
 #hero{background:var(--black);min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative}
@@ -333,6 +340,13 @@ nav.scrolled .nav-links .nav-cta{background:var(--black);color:#fff!important;}
 .tcard p{font-size:13px;line-height:1.62;color:#333;margin-bottom:18px}
 .tauthor{display:flex;align-items:center;gap:10px}
 .tauthor img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.avatar-fallback{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#b8964e 0%,#8a6f3a 100%);
+  color:#fff;font-size:12px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;letter-spacing:.02em;
+}
 .tauthor span{font-size:13px;font-weight:500}
 
 /* ─── FAQ ─── */
@@ -665,6 +679,9 @@ nav.scrolled .hamburger span{background:var(--text)}
   #cookieBanner{padding:16px 20px;flex-direction:column;align-items:flex-start}
   .cookie-btns{width:100%}
   .cookie-btn{flex:1;text-align:center}
+  #waBtn{bottom:200px;transition:bottom .3s cubic-bezier(.4,0,.2,1)}
+  #waBtn.wa-above-banner{bottom:200px}
+  #waBtn.wa-below-banner{bottom:24px}
 }
 
 /* ── WHATSAPP BUTTON ── */
@@ -839,6 +856,19 @@ nav.scrolled .hamburger span{background:var(--text)}
   #our-work .spec-value{font-size:16px;}
   #our-work .spec-label{font-size:10px;}
 }
+
+/* ══ MOTION PREFERENCES ══ */
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal,.reveal-left,.reveal-right{opacity:1;transform:none}
+  .mq-track,.mq-track.rev,.img-scroll-track{animation:none !important}
+  .badge,.badge::before,#waBtn{animation:none !important}
+}
 </style>
 </head>
 <body>
@@ -876,8 +906,8 @@ nav.scrolled .hamburger span{background:var(--text)}
     See our <a href="privacy.html">Privacy Policy</a> for details.
   </p>
 <div class="cookie-btns">
-<button class="cookie-btn cookie-decline" onclick="cookieChoice(false)">Decline</button>
-<button class="cookie-btn cookie-accept" onclick="cookieChoice(true)">Accept</button>
+<button aria-label="Decline cookies" class="cookie-btn cookie-decline" onclick="cookieChoice(false)">Decline</button>
+<button aria-label="Accept cookies" class="cookie-btn cookie-accept" onclick="cookieChoice(true)">Accept</button>
 </div>
 </div>
 <!-- ══ WHATSAPP ══ -->
@@ -1182,7 +1212,7 @@ nav.scrolled .hamburger span{background:var(--text)}
 <img alt="OMS" src="/logo-monogram-footer.png" srcset="/logo-monogram-footer.png 1x, /logo-monogram-footer@2x.png 2x" width="252" height="64" style="height:32px;width:auto;opacity:.6;"/>
 </div>
 <div class="f-btm">
-<p>© 2025 Oxford Marble Specialist. All rights reserved.</p>
+<p>© <span id="footerYear">2025</span> Oxford Marble Specialist. All rights reserved.</p>
 <p><a href="privacy.html">Privacy Policy</a>  ·  <a href="terms.html">Terms &amp; Conditions</a></p>
 </div>
 </footer>
@@ -1330,15 +1360,15 @@ document.getElementById('btnSend').addEventListener('click', () => {
 
 /* ══ TESTIMONIAL MARQUEES ══ */
 const testimonials = [
-  { text:"The Calacatta marble worktop Oxford Marble Specialist installed is the most beautiful thing in our home. The veining is perfectly matched and the finish is flawless. Worth every penny.", name:"Sarah T., Kensington", img:"https://framerusercontent.com/images/8HLaFezwgplG6FyWPQtUp4ZShH0.png" },
-  { text:"Oxford Marble Specialist transformed our bathroom with Carrara marble from floor to ceiling. Immaculate work, zero mess, and they finished two days ahead of schedule. Absolutely outstanding.", name:"James R., Hampstead", img:"https://framerusercontent.com/images/AqDU62U0ILWH6uLvadot2OfuggA.jpg" },
-  { text:"We had a bespoke limestone fireplace installed and it is simply stunning. The hand-carved detailing is extraordinary. OMS are true craftsmen in every sense.", name:"Charlotte H., Chelsea", img:"https://framerusercontent.com/images/rG3mqtO2ErGwJ4dpgrkKuC1iB4.png" },
-  { text:"Our granite garden patio is exactly what we dreamed of. OMS worked around our schedule, kept the site tidy and delivered perfect results. Highly recommended.", name:"Laura D., Richmond", img:"https://framerusercontent.com/images/0LLi7NyrkDexwUnzjGfWxq3RmE.png" },
-  { text:"From first templating visit to final polish, the team were professional, communicative and meticulous. The Quartz worktops are absolutely perfect. We've already referred three friends.", name:"Daniel F., Islington", img:"https://framerusercontent.com/images/cZ9VBNOcSpg8RiRzIkAXdz6ScF4.png" },
-  { text:"Oxford Marble Specialist clad our entire hallway in book-matched Nero Marquina marble. The result is breathtaking. They worked seamlessly with our interior designer and delivered on every detail.", name:"Oliver B., Notting Hill", img:"https://framerusercontent.com/images/js5oJLlObYjJL8Rfq2iwUlXwYIE.png" },
+  { text:"The Calacatta marble worktop Oxford Marble Specialist installed is the most beautiful thing in our home. The veining is perfectly matched and the finish is flawless. Worth every penny.", name:"Sarah T., Kensington", initials:"ST" },
+  { text:"Oxford Marble Specialist transformed our bathroom with Carrara marble from floor to ceiling. Immaculate work, zero mess, and they finished two days ahead of schedule. Absolutely outstanding.", name:"James R., Hampstead", initials:"JR" },
+  { text:"We had a bespoke limestone fireplace installed and it is simply stunning. The hand-carved detailing is extraordinary. OMS are true craftsmen in every sense.", name:"Charlotte H., Chelsea", initials:"CH" },
+  { text:"Our granite garden patio is exactly what we dreamed of. OMS worked around our schedule, kept the site tidy and delivered perfect results. Highly recommended.", name:"Laura D., Richmond", initials:"LD" },
+  { text:"From first templating visit to final polish, the team were professional, communicative and meticulous. The Quartz worktops are absolutely perfect. We've already referred three friends.", name:"Daniel F., Islington", initials:"DF" },
+  { text:"Oxford Marble Specialist clad our entire hallway in book-matched Nero Marquina marble. The result is breathtaking. They worked seamlessly with our interior designer and delivered on every detail.", name:"Oliver B., Notting Hill", initials:"OB" },
 ];
 function makeCard(t) {
-  return `<div class="tcard"><div class="stars">★★★★★</div><p>${t.text}</p><div class="tauthor"><img src="${t.img}" alt="${t.name}" loading="lazy"><span>${t.name}</span></div></div>`;
+  return `<div class="tcard"><div class="stars">★★★★★</div><p>${t.text}</p><div class="tauthor"><div class="avatar-fallback" aria-hidden="true">${t.initials || t.name.charAt(0)}</div><span>${t.name}</span></div></div>`;
 }
 function buildMQ(el, items) { el.innerHTML = [...items,...items].map(makeCard).join(''); }
 buildMQ(document.getElementById('mq1'), testimonials);
@@ -1572,6 +1602,21 @@ function cookieChoice(accepted) {
   const banner = document.getElementById('cookieBanner');
   banner.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
   banner.style.transform = 'translateY(100%)';
+  const wa = document.getElementById('waBtn');
+  if (wa && window.matchMedia('(max-width:600px)').matches) {
+    wa.classList.add('wa-below-banner');
+  }
+  if (!accepted) {
+    // Clear any future analytics/tracking cookies we might set.
+    // Currently the site has no analytics, so this is a no-op —
+    // but ensures Decline actually does something once we add Plausible/GA.
+    document.cookie.split(';').forEach(c => {
+      const name = c.split('=')[0].trim();
+      if (name.startsWith('oms_') || name.startsWith('_ga') || name.startsWith('plausible')) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
   setTimeout(() => banner.style.display = 'none', 400);
 }
 
@@ -1626,6 +1671,42 @@ function cookieChoice(accepted) {
 
   window.openMobileMenu = openMobileMenu;
   window.closeMobileMenu = closeMobileMenu;
+})();
+
+/* ══ FOOTER YEAR ══ */
+(function(){
+  const el = document.getElementById('footerYear');
+  if (el) el.textContent = new Date().getFullYear();
+})();
+
+/* ══ ACTIVE NAV LINK ON SCROLL ══ */
+(function(){
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!navLinks.length) return;
+  const sectionIds = Array.from(navLinks).map(a => a.getAttribute('href').slice(1));
+  const sections = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  function setActive(id) {
+    navLinks.forEach(a => {
+      const match = a.getAttribute('href').slice(1) === id;
+      a.classList.toggle('is-active', match);
+      if (match) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    // Pick the topmost intersecting section
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+    if (visible.length) setActive(visible[0].target.id);
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => obs.observe(s));
 })();
 </script>
 </body>
